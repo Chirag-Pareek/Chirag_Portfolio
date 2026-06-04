@@ -600,8 +600,12 @@ export function HeroSection() {
         setDirection(nextDirection);
       }
 
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const coinThreshold = isMobile ? 30 : 38;
+      const nodeThreshold = isMobile ? 36 : 45;
+
       const nextCoins = coinsRef.current.map((coin) => (
-        pixelDistance(nextPlayer, coin) < 38 ? createCoin(coinIdRef.current++) : coin
+        pixelDistance(nextPlayer, coin) < coinThreshold ? createCoin(coinIdRef.current++) : coin
       ));
 
       const collected = nextCoins.filter((coin, index) => coin.id !== coinsRef.current[index].id).length;
@@ -622,7 +626,7 @@ export function HeroSection() {
       // Check collision with project nodes (with a 2.5-second cooldown after closing a popup)
       if (Date.now() - lastCloseTimeRef.current > 2500) {
         MAP_NODES.forEach((node) => {
-          if (pixelDistance(nextPlayer, node) < 45) {
+          if (pixelDistance(nextPlayer, node) < nodeThreshold) {
             if (activeProjectRef.current?.label !== node.label) {
               setActiveProject(node);
               activeProjectRef.current = node;
@@ -832,7 +836,7 @@ export function HeroSection() {
             {coins.map((coin) => (
               <div
                 key={coin.id}
-                className="absolute z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-pulse"
+                className="absolute z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-pulse scale-[0.8] md:scale-100"
                 style={{ left: `${coin.x}%`, top: `${coin.y}%` }}
               >
                 <CoinSprite />
@@ -840,7 +844,7 @@ export function HeroSection() {
             ))}
 
             <div
-              className="absolute z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              className="absolute z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none scale-75 md:scale-100"
               style={{ left: `${player.x}%`, top: `${player.y}%` }}
             >
               <CatSprite direction={direction} isEating={isEating} />
