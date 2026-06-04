@@ -1,0 +1,162 @@
+[
+  {
+    "name": "WatchFlo",
+    "description": null,
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/WatchFlo",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "aether_project",
+    "description": null,
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/aether_project",
+    "private": false,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Fineprint",
+    "description": "Scan contracts (gym, lease, job offer, SaaS terms) → get plain-English risk analysis → take action",
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/Fineprint",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Flutter_Practice",
+    "description": "Flutter Tiny Projects",
+    "language": "HTML",
+    "url": "https://github.com/Chirag-Pareek/Flutter_Practice",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Lang_Practice",
+    "description": "Different languages",
+    "language": "Java",
+    "url": "https://github.com/Chirag-Pareek/Lang_Practice",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Linkedin-Translator",
+    "description": null,
+    "language": "JavaScript",
+    "url": "https://github.com/Chirag-Pareek/Linkedin-Translator",
+    "private": true,
+    "topics": [],
+    "homepage": "https://linkedintranslator-pearl.vercel.app",
+    "archived": false
+  },
+  {
+    "name": "Knovi-WebAndApp",
+    "description": "Knovi is an AI-powered interview simulation platform that helps users test their real-world knowledge through advanced, topic-based assessments.  Unlike traditional quiz apps, Knovi focuses on long-form thinking, depth, and real interview-style evaluation, providing a more authentic skill assessment experience.",
+    "language": null,
+    "url": "https://github.com/Chirag-Pareek/Knovi-WebAndApp",
+    "private": false,
+    "topics": [],
+    "homepage": "https://knovi-web.vercel.app/",
+    "archived": false
+  },
+  {
+    "name": "Mimicly-AI",
+    "description": "An AI assistant that helps you reply like anyone — whether it’s a friend, partner, or professional — in seconds. ",
+    "language": null,
+    "url": "https://github.com/Chirag-Pareek/Mimicly-AI",
+    "private": false,
+    "topics": [],
+    "homepage": "https://mimicly.netlify.app/",
+    "archived": false
+  },
+  {
+    "name": "GitDocs-",
+    "description": "GitDocs+ – All GitHub commands. One modern, easy-to-use interface. Just read, copy, and use. Simple.",
+    "language": "TypeScript",
+    "url": "https://github.com/Chirag-Pareek/GitDocs-",
+    "private": false,
+    "topics": [],
+    "homepage": "https://git-docs-one.vercel.app",
+    "archived": false
+  },
+  {
+    "name": "knovi",
+    "description": null,
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/knovi",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "knovi-web",
+    "description": null,
+    "language": "JavaScript",
+    "url": "https://github.com/Chirag-Pareek/knovi-web",
+    "private": true,
+    "topics": [],
+    "homepage": "https://knovi-web.vercel.app",
+    "archived": false
+  },
+  {
+    "name": "mimicly",
+    "description": "An AI assistant that helps you reply like anyone — whether it’s a friend, partner, or professional — in seconds.",
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/mimicly",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Flutter-Login",
+    "description": "First login api practice",
+    "language": "TypeScript",
+    "url": "https://github.com/Chirag-Pareek/Flutter-Login",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "NoteForge",
+    "description": "NoteForge is an all-in-one AI-powered learning app designed to help students study smarter, stay organized, and track real progress. Built for modern learners, NoteForge combines notes, practice, planning, and AI assistance into a single seamless experience.",
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/NoteForge",
+    "private": false,
+    "topics": [],
+    "homepage": "",
+    "archived": false
+  },
+  {
+    "name": "Flutter_Projects",
+    "description": null,
+    "language": "Dart",
+    "url": "https://github.com/Chirag-Pareek/Flutter_Projects",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  },
+  {
+    "name": "Web_Tiny-Projects",
+    "description": null,
+    "language": "CSS",
+    "url": "https://github.com/Chirag-Pareek/Web_Tiny-Projects",
+    "private": true,
+    "topics": [],
+    "homepage": null,
+    "archived": false
+  }
+]

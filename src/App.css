@@ -1,0 +1,73 @@
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.coin-sprite {
+  animation: coin-pulse 1.2s steps(2, end) infinite;
+}
+
+.cat-sprite {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 400% 100%;
+  image-rendering: pixelated;
+  transform-origin: center;
+  animation: cat-walk 0.48s steps(4, end) infinite, cat-bob 0.55s ease-in-out infinite;
+}
+
+@keyframes cat-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -2px;
+  }
+}
+
+@keyframes cat-walk {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -176px 0;
+  }
+}
+
+@keyframes coin-pulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.18;
+  }
+}
+
+@keyframes score-glow {
+  0% {
+    color: #7D5B2E;
+  }
+  25% {
+    color: #F7B33D;
+  }
+  50% {
+    color: #00A9A0;
+  }
+  75% {
+    color: #DA6628;
+  }
+  100% {
+    color: #7D5B2E;
+  }
+}
+
+.score-glowing {
+  animation: score-glow 5s ease-in-out infinite;
+}
