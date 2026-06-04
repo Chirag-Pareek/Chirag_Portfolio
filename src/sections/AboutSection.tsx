@@ -191,7 +191,7 @@ export function AboutSection() {
           <div className="w-full lg:w-[400px] border border-[#E8E0D4] bg-white shadow-[0_20px_50px_rgba(26,26,26,0.03)] flex flex-col shrink-0">
             <div className="p-6 border-b border-[#E8E0D4] flex justify-center items-center bg-[#FDFBF7] min-h-[300px] relative">
               <div className="absolute top-6 left-6 bg-[#F7B33D] px-3 py-1 font-mono text-[9px] uppercase tracking-wider text-white font-bold">
-                chirag the builder
+                CREATIVE SOFTWARE ENGINEER
               </div>
               <img
                 src="/assets/profile-pic.png"

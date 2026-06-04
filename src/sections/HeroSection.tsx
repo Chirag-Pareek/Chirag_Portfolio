@@ -153,8 +153,13 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-function distance(a: Point, b: Point) {
-  return Math.hypot(a.x - b.x, a.y - b.y);
+function pixelDistance(a: Point, b: Point) {
+  if (typeof window === 'undefined') return Math.hypot(a.x - b.x, a.y - b.y);
+  const axPx = (a.x / 100) * window.innerWidth;
+  const ayPx = (a.y / 100) * window.innerHeight;
+  const bxPx = (b.x / 100) * window.innerWidth;
+  const byPx = (b.y / 100) * window.innerHeight;
+  return Math.hypot(axPx - bxPx, ayPx - byPx);
 }
 
 function isBehindCard(xPercent: number, yPercent: number): boolean {
@@ -555,14 +560,14 @@ export function HeroSection() {
           manual = true;
           targetPosRef.current = null;
         } else if (targetPosRef.current) {
-          const dx = targetPosRef.current.x - playerRef.current.x;
-          const dy = targetPosRef.current.y - playerRef.current.y;
-          const dist = Math.hypot(dx, dy);
-
-          if (dist < 2.0) {
+          const distPx = pixelDistance(playerRef.current, targetPosRef.current);
+          if (distPx < 15) {
             targetPosRef.current = null;
             movement = { x: 0, y: 0 };
           } else {
+            const dx = targetPosRef.current.x - playerRef.current.x;
+            const dy = targetPosRef.current.y - playerRef.current.y;
+            const dist = Math.hypot(dx, dy);
             movement = { x: dx / dist, y: dy / dist };
             manual = true;
           }
@@ -596,7 +601,7 @@ export function HeroSection() {
       }
 
       const nextCoins = coinsRef.current.map((coin) => (
-        distance(nextPlayer, coin) < 2.5 ? createCoin(coinIdRef.current++) : coin
+        pixelDistance(nextPlayer, coin) < 38 ? createCoin(coinIdRef.current++) : coin
       ));
 
       const collected = nextCoins.filter((coin, index) => coin.id !== coinsRef.current[index].id).length;
@@ -617,7 +622,7 @@ export function HeroSection() {
       // Check collision with project nodes (with a 2.5-second cooldown after closing a popup)
       if (Date.now() - lastCloseTimeRef.current > 2500) {
         MAP_NODES.forEach((node) => {
-          if (distance(nextPlayer, node) < 3.5) {
+          if (pixelDistance(nextPlayer, node) < 45) {
             if (activeProjectRef.current?.label !== node.label) {
               setActiveProject(node);
               activeProjectRef.current = node;
@@ -654,7 +659,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="fixed inset-0 overflow-hidden pt-[68px] pb-[72px]">
+    <section className="fixed inset-0 overflow-hidden pt-[68px] pb-0 md:pb-[72px]">
       <div
         onClick={isListView ? undefined : handleMapClick}
         className={`relative h-full w-full overflow-hidden bg-white/35 ${isListView ? 'overflow-y-auto' : 'cursor-crosshair'}`}
@@ -835,7 +840,7 @@ export function HeroSection() {
             ))}
 
             <div
-              className="absolute z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 ease-out"
+              className="absolute z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
               style={{ left: `${player.x}%`, top: `${player.y}%` }}
             >
               <CatSprite direction={direction} isEating={isEating} />
@@ -917,74 +922,74 @@ export function HeroSection() {
             onMouseUp={handleDpadEnd}
             onMouseLeave={handleDpadEnd}
             style={{
-              transform: `translate(${dpadOffset.x}px, ${dpadOffset.y}px) scale(${isJoystickActive ? 1.15 : 1})`,
+              transform: `translate(${dpadOffset.x}px, ${dpadOffset.y}px)`,
               transition: isDraggingDpad ? 'none' : 'transform 0.15s ease-out',
               touchAction: 'none'
             }}
           >
             <div 
-              className={`p-2 bg-[#FFFBF5]/90 border border-ink rounded-2xl shadow-lg backdrop-blur-sm grid grid-cols-3 grid-rows-3 gap-1.5 transition-all duration-200 ${
+              className={`p-1.5 bg-[#FFFBF5]/90 border border-ink rounded-xl shadow-lg backdrop-blur-sm grid grid-cols-3 grid-rows-3 gap-1 transition-all duration-200 ${
                 isJoystickActive ? 'border-amber bg-[#FFFBF5]' : ''
               }`}
             >
               {/* Row 1 */}
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8" />
               <button
                 data-direction="up"
-                className={`w-10 h-10 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
+                className={`w-8 h-8 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
                   activeDpadDir === 'up' 
                     ? 'bg-[#F7B33D] text-white border-amber shadow-inner scale-95' 
                     : 'bg-white text-ink hover:bg-neutral-50'
                 }`}
               >
-                <span className="text-[12px] font-pixel select-none pointer-events-none">▲</span>
+                <span className="text-[10px] font-pixel select-none pointer-events-none">▲</span>
               </button>
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8" />
 
               {/* Row 2 */}
               <button
                 data-direction="left"
-                className={`w-10 h-10 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
+                className={`w-8 h-8 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
                   activeDpadDir === 'left' 
                     ? 'bg-[#F7B33D] text-white border-amber shadow-inner scale-95' 
                     : 'bg-white text-ink hover:bg-neutral-50'
                 }`}
               >
-                <span className="text-[12px] font-pixel select-none pointer-events-none">◀</span>
+                <span className="text-[10px] font-pixel select-none pointer-events-none">◀</span>
               </button>
               
               {/* Center cell - Empty center but subtle drag crosshair */}
-              <div className="w-10 h-10 flex items-center justify-center relative pointer-events-none">
-                <div className="w-2.5 h-2.5 flex items-center justify-center relative opacity-20">
-                  <div className="absolute w-2 h-0.5 bg-ink rounded-full" />
-                  <div className="absolute w-0.5 h-2 bg-ink rounded-full" />
+              <div className="w-8 h-8 flex items-center justify-center relative pointer-events-none">
+                <div className="w-2 h-2 flex items-center justify-center relative opacity-20">
+                  <div className="absolute w-1.5 h-0.5 bg-ink rounded-full" />
+                  <div className="absolute w-0.5 h-1.5 bg-ink rounded-full" />
                 </div>
               </div>
 
               <button
                 data-direction="right"
-                className={`w-10 h-10 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
+                className={`w-8 h-8 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
                   activeDpadDir === 'right' 
                     ? 'bg-[#F7B33D] text-white border-amber shadow-inner scale-95' 
                     : 'bg-white text-ink hover:bg-neutral-50'
                 }`}
               >
-                <span className="text-[12px] font-pixel select-none pointer-events-none">▶</span>
+                <span className="text-[10px] font-pixel select-none pointer-events-none">▶</span>
               </button>
 
               {/* Row 3 */}
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8" />
               <button
                 data-direction="down"
-                className={`w-10 h-10 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
+                className={`w-8 h-8 border border-ink rounded-lg flex items-center justify-center shadow-sm select-none transition-all pointer-events-auto active:scale-95 duration-100 ${
                   activeDpadDir === 'down' 
                     ? 'bg-[#F7B33D] text-white border-amber shadow-inner scale-95' 
                     : 'bg-white text-ink hover:bg-neutral-50'
                 }`}
               >
-                <span className="text-[12px] font-pixel select-none pointer-events-none">▼</span>
+                <span className="text-[10px] font-pixel select-none pointer-events-none">▼</span>
               </button>
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8" />
             </div>
           </div>
         )}
