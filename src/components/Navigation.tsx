@@ -10,6 +10,7 @@ export function Navigation({ currentView, setCurrentView }: NavigationProps) {
     <nav className="fixed left-0 right-0 top-0 z-50 h-[68px] border-b border-[#E8E0D4] bg-white/90 backdrop-blur-sm">
       <div className="mx-auto flex h-full max-w-[1500px] items-center justify-between px-6 md:px-12">
         <div className="flex items-center gap-4">
+          <img src="/assets/profile-pic.png" alt="Avatar" className="w-8 h-8 object-contain pixelated cursor-pointer" onClick={() => setCurrentView('projects')} />
           <button
             onClick={() => setCurrentView('projects')}
             className="font-pixel text-[10px] tracking-wider text-ink transition-colors duration-200 hover:text-amber md:text-xs"

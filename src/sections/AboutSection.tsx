@@ -1,4 +1,3 @@
-import React from 'react';
 
 const SKILLS_DEV = [
   { name: 'Flutter / Dart', level: 90, tier: 'Expert' },
