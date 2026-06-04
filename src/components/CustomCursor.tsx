@@ -1,26 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 
-type TrailPoint = {
+type HistoryPoint = {
   x: number;
   y: number;
-  id: number;
+  time: number;
 };
 
 const TRAIL_LENGTH = 8;
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const trailRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const posRef = useRef({ x: 0, y: 0 });
   const targetRef = useRef({ x: 0, y: 0 });
   const isHoveringRef = useRef(false);
   const rafId = useRef<number>(0);
-  const frameRef = useRef(0);
-  const [trail, setTrail] = useState<TrailPoint[]>([]);
+  const scaleRef = useRef(1);
+  const lastTimeRef = useRef(0);
+  const historyRef = useRef<HistoryPoint[]>([]);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
+    if (isTouch) return;
+
+    historyRef.current = [];
+    lastTimeRef.current = 0;
 
     function onMouseMove(e: MouseEvent) {
       targetRef.current.x = e.clientX;
@@ -29,45 +34,100 @@ export function CustomCursor() {
 
     function onMouseOver(e: MouseEvent) {
       const target = e.target as HTMLElement;
-      if (target.closest('a, button, [role="button"], input, textarea, select')) {
+      if (target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer, [class*="cursor-pointer"]')) {
         isHoveringRef.current = true;
         setIsHovering(true);
       }
     }
 
+    // Capture standard drag-out/leaves
     function onMouseOut(e: MouseEvent) {
       const target = e.target as HTMLElement;
-      if (target.closest('a, button, [role="button"], input, textarea, select')) {
+      if (target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer, [class*="cursor-pointer"]')) {
         isHoveringRef.current = false;
         setIsHovering(false);
       }
     }
 
-    function animate() {
-      rafId.current = requestAnimationFrame(animate);
+    function animate(time: number) {
+      if (!lastTimeRef.current) {
+        lastTimeRef.current = time;
+      }
+      // Clamp delta time to avoid huge leaps (e.g. after tab suspension)
+      const dt = Math.min(time - lastTimeRef.current, 100);
+      lastTimeRef.current = time;
 
-      posRef.current.x += (targetRef.current.x - posRef.current.x) * 0.15;
-      posRef.current.y += (targetRef.current.y - posRef.current.y) * 0.15;
+      // Make interpolation factors frame-rate independent.
+      // Based on typical 60fps (16.67ms) factors:
+      // pos factor is 0.25, scale factor is 0.15
+      const posFactor = 1 - Math.pow(0.75, dt / 16.67);
+      const scaleFactor = 1 - Math.pow(0.85, dt / 16.67);
 
-      const size = isHoveringRef.current ? 18 : 12;
-      const offset = size / 2;
+      posRef.current.x += (targetRef.current.x - posRef.current.x) * posFactor;
+      posRef.current.y += (targetRef.current.y - posRef.current.y) * posFactor;
 
+      const targetScale = isHoveringRef.current ? 1.5 : 1;
+      scaleRef.current += (targetScale - scaleRef.current) * scaleFactor;
+
+      // Update main cursor dot transform directly (using translate + scale)
+      // This is a composite-only change, bypassing heavy style recalculations
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${posRef.current.x - offset}px, ${posRef.current.y - offset}px)`;
-        cursorRef.current.style.width = `${size}px`;
-        cursorRef.current.style.height = `${size}px`;
+        cursorRef.current.style.transform = `translate(${posRef.current.x - 6}px, ${posRef.current.y - 6}px) scale(${scaleRef.current})`;
       }
 
-      frameRef.current += 1;
-      if (frameRef.current % 2 === 0) {
-        setTrail((prev) => {
-          const next = [
-            { x: posRef.current.x, y: posRef.current.y, id: Date.now() + frameRef.current },
-            ...prev,
-          ];
-          return next.slice(0, TRAIL_LENGTH);
-        });
+      // Add coordinates to history
+      historyRef.current.unshift({ x: posRef.current.x, y: posRef.current.y, time });
+      
+      const maxDelay = (TRAIL_LENGTH + 1) * 15; // 135ms history buffer
+      while (
+        historyRef.current.length > 0 && 
+        time - historyRef.current[historyRef.current.length - 1].time > maxDelay + 50
+      ) {
+        historyRef.current.pop();
       }
+
+      // Update trail spans transform directly using time-based history interpolation.
+      // This makes the trail spacing feel identical across different refresh rates (60Hz vs 144Hz+).
+      for (let i = 0; i < TRAIL_LENGTH; i++) {
+        const trailEl = trailRefs.current[i];
+        if (trailEl) {
+          // Delay each dot by a multiple of 15ms
+          const targetTime = time - (i + 1) * 15;
+          let point = posRef.current;
+
+          const history = historyRef.current;
+          if (history.length > 0) {
+            let index = 0;
+            while (index < history.length && history[index].time > targetTime) {
+              index++;
+            }
+
+            if (index === 0) {
+              point = history[0];
+            } else if (index >= history.length) {
+              point = history[history.length - 1];
+            } else {
+              const pNew = history[index - 1];
+              const pOld = history[index];
+              const tDiff = pNew.time - pOld.time;
+              if (tDiff > 0) {
+                const pct = (pNew.time - targetTime) / tDiff;
+                point = {
+                  x: pNew.x + (pOld.x - pNew.x) * pct,
+                  y: pNew.y + (pOld.y - pNew.y) * pct,
+                };
+              } else {
+                point = pOld;
+              }
+            }
+          }
+          
+          trailEl.style.transform = `translate(${point.x}px, ${point.y}px) translate(-50%, -50%)`;
+          trailEl.style.display = 'block';
+        }
+      }
+
+      rafId.current = requestAnimationFrame(animate);
     }
 
     window.addEventListener('mousemove', onMouseMove);
@@ -85,39 +145,48 @@ export function CustomCursor() {
 
   return (
     <>
+      {/* Trail Points overlay */}
       <div className="pointer-events-none fixed inset-0 z-[9998] hidden md:block" aria-hidden="true">
-        {trail.map((point, index) => {
+        {Array.from({ length: TRAIL_LENGTH }).map((_, index) => {
           const strength = 1 - index / TRAIL_LENGTH;
           return (
             <span
-              key={point.id}
+              key={index}
+              ref={(el) => {
+                trailRefs.current[index] = el;
+              }}
               className={`absolute rounded-sm ${isHovering ? 'bg-[#D87D15]' : 'bg-[#E8943A]'}`}
               style={{
+                display: 'none',
+                position: 'fixed',
+                left: 0,
+                top: 0,
                 width: isHovering ? `${12 * strength}px` : `${10 * strength}px`,
                 height: isHovering ? `${12 * strength}px` : `${10 * strength}px`,
-                left: point.x,
-                top: point.y,
                 opacity: isHovering ? 0.65 * strength : 0.16 * strength,
-                transform: 'translate(-50%, -50%)',
                 filter: isHovering ? `blur(${(1 - strength) * 0.8}px)` : `blur(${(1 - strength) * 2}px)`,
+                pointerEvents: 'none',
+                zIndex: 9998,
               }}
             />
           );
         })}
       </div>
 
+      {/* Main Cursor Dot */}
       <div
         ref={cursorRef}
+        className="hidden md:block"
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '12px',
           height: '12px',
-          backgroundColor: '#E8943A',
+          backgroundColor: isHovering ? '#D87D15' : '#E8943A',
           pointerEvents: 'none',
           zIndex: 9999,
-          transition: 'width 0.2s ease, height 0.2s ease, background-color 0.2s ease',
+          transition: 'background-color 0.15s ease',
           imageRendering: 'pixelated',
         }}
         aria-hidden="true"

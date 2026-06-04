@@ -16,26 +16,41 @@ AI and APIs: Groq API, OpenAI API / ChatGPT integrations
 Tools: Git, GitHub, Figma, Android Studio, VS Code
 
 ## Projects
+
 ### Mimicly | Persona AI Chat Assistant
 Live Demo: [add URL]
 
-- Built an AI-powered assistant with an overlay interface for smart cross-app replies in real time.
-- Developed a scalable backend using NestJS and Supabase PostgreSQL with a focus on reliability and performance.
-- Implemented JWT authentication, OAuth, and Razorpay payment integration.
-- Designed SaaS-focused backend flows including usage tracking, rate limiting, and performance-aware architecture.
+- **AI-powered assistant:** Generates context-aware smart replies across major messaging apps via an overlay UI bubble.
+- **Custom Personas:** Allows users to tailor replies by selecting personas (e.g., Boss, Friend) for perfect tone matching.
+- **High-performance Landing Page:** Built natively with vanilla HTML, CSS, and JS, featuring a custom 3D curved screenshot carousel and animated dark/light modes.
 
 ### Knovi | AI Quiz Platform
 Website: [add URL] | Android APK: [add URL]
 
-- Built a full-stack quiz platform with a Flutter app and React website powered by the Groq AI API.
-- Created a dynamic difficulty system that increases challenge progressively and pushes high-score users harder.
-- Added anti-cheat protections including clipboard lock, minimize-to-reset flow, and split-screen prevention.
-- Built interactive web experiences including sprite-sheet hover animations and a live Supabase-powered leaderboard.
-- Shipped the full product independently in a rapid build cycle using open-source AI tools and VS Code.
+- **Full-stack platform:** React website and Flutter mobile app powered by Groq AI API and Supabase backend.
+- **Interactive UI:** Features advanced DOM animations via Framer Motion and interactive vector animations using Rive.
+- **Core features:** Dynamic, topic-based assessments that test real-world knowledge with robust state management via Zustand.
 
-### NoteForge | Notes and Productivity App
-- Developed a Flutter productivity app with Firebase authentication, login/signup flows, and profile management.
-- Used reusable components and scalable structure to keep the UI clean and easy to extend.
+### LinkedIn Translator | AI Chrome Extension
+Chrome Web Store: [add URL]
+
+- **Content Simplifier:** Manifest V3 extension using a MutationObserver to dynamically simplify LinkedIn posts into honest English via Groq AI.
+- **Scalable Backend:** Node.js API hosted on Vercel with Firebase/Firestore integration for caching and enforcing daily usage limits.
+- **Monetization integration:** Supports a premium tier using LemonSqueezy checkout and secure billing webhooks.
+
+### GitDocs+ | Developer Documentation Tool
+Live Demo: [add URL] | GitHub: [add URL]
+
+- **Modern Web Interface:** Complete GitHub command reference built with bleeding-edge React 19, TypeScript, and Vite.
+- **Accessible UI:** Styled with TailwindCSS and Radix UI primitives, featuring instant search and one-click copy functionality.
+- **Advanced features:** Implements data visualization with Recharts, sliding carousels with Embla, and form validation using Zod and React Hook Form.
+
+### Watchflo | Media Tracking App
+GitHub: [add URL]
+
+- **Cross-platform tracking:** A mobile and web application for tracking and streaming watch progress seamlessly across devices.
+- **Robust Mobile App:** Built with Flutter and Dart, compiling natively to iOS, Android, and Desktop platforms.
+- **OTA Updates:** Integrates Shorebird for over-the-air deployment, enabling instant patches directly to production without app store reviews.
 
 ## Education
 BCA (Honours), Parul University  

@@ -31,16 +31,16 @@
     font-family: 'JetBrains Mono', monospace;
     background-color: #FFFBF5;
     color: #1A1A1A;
-    cursor: none;
     overflow: hidden;
   }
 
-  * {
-    cursor: none;
-  }
-
-  a, button, [role="button"] {
-    cursor: none;
+  @media (hover: hover) and (pointer: fine) {
+    body, * {
+      cursor: none;
+    }
+    a, button, [role="button"] {
+      cursor: none;
+    }
   }
 
   /* Focus styles for accessibility */

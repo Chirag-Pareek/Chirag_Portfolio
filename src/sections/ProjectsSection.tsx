@@ -17,20 +17,26 @@ const PROJECTS: Project[] = [
   {
     name: 'Mimicly',
     description: 'AI chat assistant with overlay UI, NestJS backend, Supabase, auth, payments, and SaaS-style usage tracking',
-    icon: '/assets/project-icon-1.jpg',
+    icon: '/assets/mimicly-icon.png',
     href: 'https://mimicly.netlify.app/',
   },
   {
     name: 'Knovi',
     description: 'AI quiz platform with Flutter app, React web experience, Groq API, anti-cheat flows, and live leaderboard',
-    icon: '/assets/project-icon-2.jpg',
+    icon: '/assets/knovi-icon.png',
     href: 'https://knovi-web.vercel.app/',
   },
   {
     name: 'Knovi APK',
     description: 'Android build for the AI quiz experience with custom mobile gameplay and anti-cheat protection',
-    icon: '/assets/project-icon-3.jpg',
+    icon: '/assets/knovi-icon.png',
     href: 'https://github.com/Chirag-Pareek/Knovi-WebAndApp/releases/download/v1.0/Knovi.apk',
+  },
+  {
+    name: 'LinkedIn Translator',
+    description: 'A Chrome Extension that uses Groq AI to simplify LinkedIn posts, job titles, and job descriptions into plain English.',
+    icon: '/assets/linkedin-translator-icon.png',
+    href: '#',
   },
 ];
 
@@ -45,7 +51,7 @@ function ProjectCard({ project }: { project: Project }) {
       <img
         src={project.icon}
         alt={project.name}
-        className="w-8 h-8 rounded-md object-cover"
+        className="w-8 h-8 rounded-md object-cover bg-white"
       />
       <span className="font-mono text-[14px] font-medium text-ink">
         {project.name}

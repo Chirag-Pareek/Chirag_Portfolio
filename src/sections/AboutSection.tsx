@@ -1,4 +1,6 @@
 
+import { playClickSound, playCoinSound } from '@/lib/sounds';
+
 const SKILLS_DEV = [
   { name: 'Flutter / Dart', level: 90, tier: 'Expert' },
   { name: 'React / Next.js', level: 85, tier: 'Advanced' },
@@ -65,6 +67,73 @@ const QUESTS = [
   },
 ];
 
+interface AnimatedSocialButtonProps {
+  platform: 'github' | 'linkedin' | 'x';
+  href: string;
+}
+
+const SOCIAL_ICONS = {
+  github: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    </svg>
+  ),
+  linkedin: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  ),
+  x: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  )
+};
+
+const SOCIAL_COLORS = {
+  github: {
+    bg: 'bg-[#24292e]',
+    textHover: 'group-hover:text-white',
+    border: 'hover:border-[#24292e]',
+    shadow: 'hover:shadow-[0_8px_20px_rgba(36,41,46,0.25)]'
+  },
+  linkedin: {
+    bg: 'bg-[#0A66C2]',
+    textHover: 'group-hover:text-white',
+    border: 'hover:border-[#0A66C2]',
+    shadow: 'hover:shadow-[0_8px_20px_rgba(10,102,194,0.25)]'
+  },
+  x: {
+    bg: 'bg-[#000000]',
+    textHover: 'group-hover:text-white',
+    border: 'hover:border-black',
+    shadow: 'hover:shadow-[0_8px_20px_rgba(0,0,0,0.25)]'
+  }
+};
+
+function AnimatedSocialButton({ platform, href }: AnimatedSocialButtonProps) {
+  const colors = SOCIAL_COLORS[platform];
+  
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => {
+        playClickSound();
+      }}
+      className={`relative w-12 h-12 flex items-center justify-center border border-ink bg-white text-ink overflow-hidden rounded-md group hover:-translate-y-1 transition-all duration-300 ${colors.border} ${colors.shadow}`}
+    >
+      <div 
+        className={`absolute bottom-0 left-0 w-full h-full ${colors.bg} translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0`}
+      />
+      <span className={`relative z-10 text-ink transition-colors duration-300 ${colors.textHover}`}>
+        {SOCIAL_ICONS[platform]}
+      </span>
+    </a>
+  );
+}
+
 export function AboutSection() {
   return (
     <section className="absolute inset-0 pt-[68px] overflow-y-auto bg-[#FDFBF7] scroll-smooth">
@@ -80,7 +149,7 @@ export function AboutSection() {
             </span>
             
             <div>
-              <h1 className="font-pixel text-[42px] leading-tight text-ink md:text-[56px]">
+              <h1 className="font-pixel text-[26px] sm:text-[38px] md:text-[56px] leading-tight text-ink">
                 Chirag
                 <br />
                 Pareek
@@ -93,11 +162,24 @@ export function AboutSection() {
               Early builder at multiple AI startups. Fluent in Flutter, React, and Node.js.
             </p>
 
+            {/* Social Buttons with slide-up fill effect */}
+            <div className="flex flex-col gap-3 pt-2">
+              <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#B5B0AA] block select-none">
+                CONNECT / SOCIALS
+              </span>
+              <div className="flex gap-3">
+                <AnimatedSocialButton platform="github" href="https://github.com/Chirag-Pareek" />
+                <AnimatedSocialButton platform="linkedin" href="https://www.linkedin.com/in/chirag-pareek-369b4b265" />
+                <AnimatedSocialButton platform="x" href="https://x.com/chiragpareek677" />
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3 pt-2">
               {['FULL STACK', 'AI INTEGRATION', 'MOBILE DEV', 'SYSTEM DESIGN', 'FRONTEND', 'BACKEND'].map((tag) => (
                 <span
                   key={tag}
-                  className="border border-[#E8E0D4] bg-white px-4 py-2 font-mono text-[9px] uppercase tracking-wider text-warm-gray"
+                  onClick={playClickSound}
+                  className="border border-[#E8E0D4] bg-white px-4 py-2 font-mono text-[9px] uppercase tracking-wider text-warm-gray cursor-pointer hover:border-amber hover:text-amber active:scale-95 transition-all select-none"
                 >
                   {tag}
                 </span>
@@ -107,22 +189,27 @@ export function AboutSection() {
 
           {/* Right Column: Sprite Card */}
           <div className="w-full lg:w-[400px] border border-[#E8E0D4] bg-white shadow-[0_20px_50px_rgba(26,26,26,0.03)] flex flex-col shrink-0">
-            <div className="p-6 border-b border-[#E8E0D4] flex justify-center items-center bg-[#FDFBF7] min-h-[300px]">
+            <div className="p-6 border-b border-[#E8E0D4] flex justify-center items-center bg-[#FDFBF7] min-h-[300px] relative">
               <div className="absolute top-6 left-6 bg-[#F7B33D] px-3 py-1 font-mono text-[9px] uppercase tracking-wider text-white font-bold">
                 chirag the builder
               </div>
-              <img src="/assets/profile-pic.png" alt="Avatar" className="w-48 h-48 object-contain pixelated drop-shadow-md" />
+              <img
+                src="/assets/profile-pic.png"
+                alt="Avatar"
+                className="w-48 h-48 object-contain pixelated drop-shadow-md cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                onClick={playCoinSound}
+              />
             </div>
             
             <div className="p-6 flex flex-col gap-6">
               <div className="flex justify-between">
                 <div>
                   <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#B5B0AA] block mb-1">TOKEN</span>
-                  <span className="font-mono text-[11px] text-[#F7B33D] font-bold tracking-wider uppercase">chrgprk</span>
+                  <span className="font-mono text-[11px] text-[#F7B33D] font-bold tracking-wider uppercase">chiragpareek</span>
                 </div>
                 <div>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#B5B0AA] block mb-1">LEVEL</span>
-                  <span className="font-pixel text-[14px] text-ink uppercase">015</span>
+                  <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#B5B0AA] block mb-1">AGE</span>
+                  <span className="font-pixel text-[14px] text-ink uppercase">21</span>
                 </div>
               </div>
 
@@ -165,7 +252,11 @@ export function AboutSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-0 border-l border-t border-[#E8E0D4]">
             {QUESTS.map((quest, i) => (
-              <div key={i} className="border-r border-b border-[#E8E0D4] p-8 flex flex-col bg-white hover:bg-[#FDFBF7] transition-colors">
+              <div
+                key={i}
+                onClick={playClickSound}
+                className="border-r border-b border-[#E8E0D4] p-8 flex flex-col bg-white hover:bg-[#FDFBF7] cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all select-none"
+              >
                 <div className="flex justify-between items-start mb-6">
                   <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#F7B33D] font-bold">
                     — {quest.category}

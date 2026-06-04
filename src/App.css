@@ -71,3 +71,42 @@ body,
 .score-glowing {
   animation: score-glow 5s ease-in-out infinite;
 }
+
+@keyframes text-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.blink-text {
+  animation: text-blink 1.2s steps(2, start) infinite;
+}
+
+/* D-pad and Joystick mobile touch optimizations */
+button[aria-label^="Move "],
+div[onTouchStart] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Water waving keyframes and animation */
+@keyframes wave-move {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.85);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+.animate-wave {
+  animation: wave-move 2.5s linear infinite;
+}
