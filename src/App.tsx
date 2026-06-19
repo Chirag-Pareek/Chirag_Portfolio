@@ -7,17 +7,15 @@ import { PixelCanvas } from '@/components/PixelCanvas';
 import { HeroSection } from '@/sections/HeroSection';
 import { AboutSection } from '@/sections/AboutSection';
 import { Footer } from '@/sections/Footer';
-import { Loader } from '@/components/Loader';
 
 export type ViewState = 'projects' | 'about';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>('projects');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   return (
     <div className="h-dvh w-screen overflow-hidden bg-[#FFFCF7] text-ink relative">
-      <Loader onComplete={() => setIsLoaded(true)} />
       
       <div 
         className={`h-full w-full flex flex-col transition-all duration-1000 ${
