@@ -1,6 +1,6 @@
 
 import { playClickSound, playCoinSound } from '@/lib/sounds';
-import GitHubCalendar from 'react-github-calendar';
+import { GitHubCalendar } from 'react-github-calendar';
 
 const SKILLS_DEV = [
   { name: 'Flutter / Dart', level: 90, tier: 'Expert' },
