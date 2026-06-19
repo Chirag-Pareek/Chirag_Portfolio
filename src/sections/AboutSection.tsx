@@ -1,5 +1,6 @@
 
 import { playClickSound, playCoinSound } from '@/lib/sounds';
+import GitHubCalendar from 'react-github-calendar';
 
 const SKILLS_DEV = [
   { name: 'Flutter / Dart', level: 90, tier: 'Expert' },
@@ -279,7 +280,7 @@ export function AboutSection() {
         </div>
 
         {/* SKILL TREE */}
-        <div className="flex flex-col gap-8 pb-24">
+        <div className="flex flex-col gap-8">
           <div className="flex items-center gap-4 border-b border-[#E8E0D4] pb-4">
             <span className="font-pixel text-[20px] text-[#F7B33D]">02</span>
             <h2 className="font-pixel text-[24px] text-ink">Skill Tree</h2>
@@ -337,6 +338,64 @@ export function AboutSection() {
               ))}
             </div>
 
+          </div>
+        </div>
+
+        {/* GITHUB ANALYTICS */}
+        <div className="flex flex-col gap-8 pb-24">
+          <div className="flex items-center gap-4 border-b border-[#E8E0D4] pb-4">
+            <span className="font-pixel text-[20px] text-[#F7B33D]">03</span>
+            <h2 className="font-pixel text-[24px] text-ink">GitHub Analytics</h2>
+          </div>
+          
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+              <img 
+                src="https://github-readme-stats.vercel.app/api?username=Chirag-Pareek&show_icons=true&bg_color=FFFFFF&title_color=1A1A1A&text_color=8B8175&icon_color=F7B33D&border_color=FFFFFF&hide_border=true&border_radius=0" 
+                alt="GitHub Stats" 
+                className="w-full max-w-[450px]"
+              />
+            </div>
+            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+              <img 
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=Chirag-Pareek&layout=compact&bg_color=FFFFFF&title_color=1A1A1A&text_color=8B8175&border_color=FFFFFF&hide_border=true&border_radius=0" 
+                alt="Top Languages" 
+                className="w-full max-w-[400px]"
+              />
+            </div>
+          </div>
+
+          {/* Streak Stats */}
+          <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+             <img 
+                src="https://github-readme-streak-stats.herokuapp.com/?user=Chirag-Pareek&background=FFFFFF&border=FFFFFF&stroke=1A1A1A&ring=F7B33D&fire=F7B33D&currStreakNum=1A1A1A&sideNums=8B8175&currStreakLabel=8B8175&sideLabels=8B8175&dates=8B8175&hide_border=true&border_radius=0" 
+                alt="GitHub Streak" 
+                className="w-full max-w-[800px]"
+              />
+          </div>
+
+          {/* Contributions Graph */}
+          <div className="border border-[#E8E0D4] bg-white p-8 flex justify-center items-center overflow-x-auto hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+            <div className="min-w-[800px] flex justify-center">
+              <GitHubCalendar 
+                username="Chirag-Pareek" 
+                blockSize={14}
+                blockMargin={5}
+                fontSize={12}
+                theme={{
+                  light: ['#EFE8DD', '#F5D9A8', '#FFD27A', '#E8943A', '#D4792A'],
+                  dark: ['#EFE8DD', '#F5D9A8', '#FFD27A', '#E8943A', '#D4792A'],
+                }}
+                labels={{
+                  totalCount: '{{count}} contributions in the last year',
+                }}
+                style={{
+                  color: '#1A1A1A',
+                  fontFamily: '"JetBrains Mono", monospace'
+                }}
+              />
+            </div>
           </div>
         </div>
 
