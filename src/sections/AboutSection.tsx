@@ -350,39 +350,43 @@ export function AboutSection() {
           
           {/* Stats Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(232,148,58,0.08)] hover:shadow-[0_8px_30px_rgba(232,148,58,0.2)] hover:border-[#F7B33D]/50 rounded-lg cursor-default relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F7B33D]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <img 
-                src="https://github-readme-stats.vercel.app/api?username=Chirag-Pareek&show_icons=true&bg_color=FFFFFF&title_color=1A1A1A&text_color=8B8175&icon_color=F7B33D&border_color=FFFFFF&hide_border=true&border_radius=0" 
+                src="https://github-readme-stats.vercel.app/api?username=Chirag-Pareek&show_icons=true&bg_color=FFFFFF&title_color=F7B33D&text_color=1A1A1A&icon_color=F7B33D&border_color=FFFFFF&hide_border=true&border_radius=0" 
                 alt="GitHub Stats" 
-                className="w-full max-w-[450px]"
+                className="w-full max-w-[450px] relative z-10 drop-shadow-sm"
               />
             </div>
-            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+            <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(232,148,58,0.08)] hover:shadow-[0_8px_30px_rgba(232,148,58,0.2)] hover:border-[#F7B33D]/50 rounded-lg cursor-default relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-bl from-[#F7B33D]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <img 
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=Chirag-Pareek&layout=compact&bg_color=FFFFFF&title_color=1A1A1A&text_color=8B8175&border_color=FFFFFF&hide_border=true&border_radius=0" 
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=Chirag-Pareek&layout=compact&bg_color=FFFFFF&title_color=F7B33D&text_color=1A1A1A&border_color=FFFFFF&hide_border=true&border_radius=0" 
                 alt="Top Languages" 
-                className="w-full max-w-[400px]"
+                className="w-full max-w-[400px] relative z-10 drop-shadow-sm"
               />
             </div>
           </div>
 
           {/* Streak Stats */}
-          <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
+          <div className="border border-[#E8E0D4] bg-white p-6 flex justify-center items-center hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(232,148,58,0.08)] hover:shadow-[0_8px_30px_rgba(232,148,58,0.2)] hover:border-[#F7B33D]/50 rounded-lg cursor-default relative overflow-hidden group">
+             <div className="absolute inset-0 bg-gradient-to-b from-[#F7B33D]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
              <img 
-                src="https://github-readme-streak-stats.herokuapp.com/?user=Chirag-Pareek&background=FFFFFF&border=FFFFFF&stroke=1A1A1A&ring=F7B33D&fire=F7B33D&currStreakNum=1A1A1A&sideNums=8B8175&currStreakLabel=8B8175&sideLabels=8B8175&dates=8B8175&hide_border=true&border_radius=0" 
+                src="https://github-readme-streak-stats.herokuapp.com/?user=Chirag-Pareek&background=FFFFFF&border=FFFFFF&stroke=F7B33D&ring=F7B33D&fire=F7B33D&currStreakNum=F7B33D&sideNums=1A1A1A&currStreakLabel=1A1A1A&sideLabels=1A1A1A&dates=8B8175&hide_border=true&border_radius=0" 
                 alt="GitHub Streak" 
-                className="w-full max-w-[800px]"
+                className="w-full max-w-[800px] relative z-10 drop-shadow-md"
               />
           </div>
 
           {/* Contributions Graph */}
-          <div className="border border-[#E8E0D4] bg-white p-8 flex justify-center items-center overflow-x-auto hover:-translate-y-1 transition-transform duration-300 shadow-sm cursor-default">
-            <div className="min-w-[800px] flex justify-center">
+          <div className="border border-[#E8E0D4] bg-white p-8 flex justify-center items-center overflow-x-auto hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(232,148,58,0.08)] hover:shadow-[0_8px_30px_rgba(232,148,58,0.2)] hover:border-[#F7B33D]/50 rounded-lg cursor-default relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F7B33D]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="min-w-[800px] flex justify-center relative z-10 [&_rect:hover]:drop-shadow-[0_0_6px_rgba(247,179,61,0.8)] [&_rect[data-level='1']]:drop-shadow-[0_0_2px_rgba(245,217,168,0.3)] [&_rect[data-level='2']]:drop-shadow-[0_0_3px_rgba(255,210,122,0.5)] [&_rect[data-level='3']]:drop-shadow-[0_0_4px_rgba(232,148,58,0.7)] [&_rect[data-level='4']]:drop-shadow-[0_0_6px_rgba(212,121,42,0.9)] transition-all duration-300">
               <GitHubCalendar 
                 username="Chirag-Pareek" 
-                blockSize={14}
+                blockSize={15}
                 blockMargin={5}
-                fontSize={12}
+                fontSize={13}
                 theme={{
                   light: ['#EFE8DD', '#F5D9A8', '#FFD27A', '#E8943A', '#D4792A'],
                   dark: ['#EFE8DD', '#F5D9A8', '#FFD27A', '#E8943A', '#D4792A'],
